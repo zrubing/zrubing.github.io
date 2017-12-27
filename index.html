@@ -318,6 +318,20 @@
 <p>4.配置文件分布在3台机器的<code>/etc/redis</code>目录</p>
 <p>5.启动6个redis实例</p>
 <p>6.redis-tribe构建集群</p>
+<p>7.添加master节点</p>
+<ul>
+<li>添加节点<code>redis-tribe.rb add-node &lt;ip:port&gt; &lt;ip:port&gt;</code>  </li>
+<li>检查cluster状态<code>redis-tribe.rb check &lt;ip:port&gt;</code>  </li>
+<li>迁移hashslot  <code>redis-tribe.rb reshard &lt;ip:port&gt;</code></li>
+</ul>
+<p>8.添加slave到master  </p>
+<ul>
+<li>创建启动脚本和conf文件</li>
+<li>启动redis</li>
+<li>挂载到master上<code>redis-tribe.rb add-node --slave --master-id &lt;masterid&gt; \  
+&lt;ip:port&gt; &lt;ip:port&gt;</code><br>第一个是slave的ip</li>
+</ul>
+<p>9.删除node<br>reshard将数据移到其他节点,再用<code>redis-tribe del-node &lt;ip:port&gt; &lt;node-id&gt;</code>,<code>&lt;ip:port&gt;</code><br>是存储redis-cluster集群信息的节点<br>redis会自动将hashslot为空的master的slave挂到其他master上</p>
 
           
         
